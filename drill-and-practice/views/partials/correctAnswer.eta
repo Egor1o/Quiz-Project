@@ -1,0 +1,19 @@
+<% layout("../layouts/layout.eta") %>
+
+<div class="container-fluid">
+  <div class="d-flex flex-column align-items-center justify-content-center mt-3">
+
+
+<div class="text-center mt-5 fs-2">
+    <h1 style="color: #8B5EB5; font-family: 'Arial', sans-serif; font-weight: bold;">Correct!</h1>
+  </div>
+
+
+<form action="/quiz/<%= it.tId %>" method="GET">
+          <button type="submit" class="btn btn-danger mt-3" style="background-color: #FF3C5E; border-color: #FF3C5E; color: white; font-weight: bold; text-transform: uppercase; font-size: 13px;" onmouseover="this.style.backgroundColor='#FF1F3B'; this.style.borderColor='#FF1F3B'" onmouseout="this.style.backgroundColor='#FF3C5E'; this.style.borderColor='#FF3C5E'">
+            Next Question
+          </button>
+</form>
+<a href="/quiz/<%= it.tId %>" style="opacity: 0;">Next question</a>
+</div>
+</div>

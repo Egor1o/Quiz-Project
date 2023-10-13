@@ -1,0 +1,96 @@
+<% layout("../layouts/layout.eta") %>
+
+<div class="container-fluid mt-3">
+  <div class="d-flex flex-row justify-content-around">
+    <div class="d-flex flex-column align-items-center justify-content-top" style="min-width: 30%; max-width: 30%; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word;">
+      <div class="d-flex justify-content-center align-items-center bg-primary text-white p-3 rounded">
+        <div class="text-center px-4">
+          <h2 class="m-0">Topic:</h2>
+          <h4 class="m-0"><%= it.topic %></h4>
+        </div>
+      </div>
+	  <div class="d-flex justify-content-center align-items-center bg-secondary text-white p-3 rounded mt-3">
+  <div class="text-center px-4 mt-1">
+    <h2 class="m-0">Question:</h2>
+    <h6 class="m-0"><%= it.question %></h6>
+  </div>
+</div>
+	
+      <% if (it.errors.length > 0) { %>
+        <div class="alert alert-warning alert-dismissible fade show" role="alert" style="margin-top: 20px;">
+          <strong>Error:</strong> <%= Object.values(it.errors[0])[0] %>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close" onclick="closeAlert()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      <% }%>
+
+	  <div class="card border-dark mt-3">
+      <div class="card-header bg-dark text-white">
+        <h2>Add answer</h2>
+      </div>
+      <div class="d-flex justify-content-between">
+        <% if (it.user) { %>
+          <form action="/topics/<%= it.id %>/questions/<%= it.question_id %>/options" method="POST" class="mt-2">
+            <div class="form-group px-2 mb-1">
+              <label for="answerInput" class="px-2">Your answer</label>
+              <textarea name="option_text" class="form-control" id="answerInput" placeholder="Enter your answer" value="<%= it.option_text %>"><%= it.option_text %></textarea>
+            </div>
+            <div class="form-check" style="margin-left: 1em">
+              <input class="form-check-input" type="checkbox" value="true" id="is_correct-input" name="is_correct"/>
+              <label class="form-check-label" for="flexCheckDefault">
+                Correct
+              </label>
+            </div>
+            <div class="d-flex justify-content-center">
+              <button id="answerAdderSubbari" type="submit" class="btn btn-primary mt-2">Submit</button> 
+            </div>
+          </form>
+        <% } %>
+      </div>
+	  </div>
+    </div>
+
+    <div class="d-flex flex-column" style="margin-left: 4em; min-width: 65%; max-width: 65%">
+		 <div>
+    <h2>Options:</h2>
+  </div>
+  <ul id="options" class="list-group">
+    <% if (it.options.length === 0) { %>
+      <li class="list-group-item text-center">
+        <form action="/topics/<%= it.id %>/questions/<%= it.question_id %>/delete" method="POST">
+          <button type="submit" class="btn btn-danger mt-3" style="background-color: #FF3C5E; border-color: #FF3C5E; color: white; font-weight: bold; text-transform: uppercase; font-size: 13px;" onmouseover="this.style.backgroundColor='#FF1F3B'; this.style.borderColor='#FF1F3B'" onmouseout="this.style.backgroundColor='#FF3C5E'; this.style.borderColor='#FF3C5E'">
+            Delete question
+          </button>
+        </form>
+      </li>
+    <% } else { %>
+	  <ul class="list-group">
+      <% it.options.forEach((option) => { %>
+        <li class="list-group-item fs-5" style="overflow-wrap: break-word; word-wrap: break-word; word-break: break-word;">
+          <p><%= option.option_text %></p>
+          <p>
+            Correct:
+            <% if (option.is_correct) { %>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" test-id="correct_symbol" class="bi bi-check" viewBox="0 0 16 16">
+                <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z" />
+              </svg>
+            <% } else { %>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" test-id="incorrect_symbol" class="bi bi-x" viewBox="0 0 16 16">
+                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+              </svg>
+            <% } %>
+          </p>
+          <form action="/topics/<%= it.id %>/questions/<%= it.question_id %>/options/<%= option.id %>/delete" method="POST">
+            <button type="submit" class="btn btn-danger" style="background-color: #FF3C5E; border-color: #FF3C5E; color: white; font-weight: bold; text-transform: uppercase; font-size: 13px;" onmouseover="this.style.backgroundColor='#FF1F3B'; this.style.borderColor='#FF1F3B'" onmouseout="this.style.backgroundColor='#FF3C5E'; this.style.borderColor='#FF3C5E'">
+              Delete option
+            </button>
+          </form>
+        </li>
+      <% }) %>
+    <% } %>
+  </ul>
+</div>
+
+  </div>
+</div>

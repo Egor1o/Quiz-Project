@@ -1,0 +1,7 @@
+<% layout("../layouts/layout.eta") %>
+
+  <div class="text-center mt-5">
+    <h1 style="color: #8B5EB5; font-family: 'Arial', sans-serif; font-weight: bold;">No questions there, ups...</h1>
+  </div>
+
+

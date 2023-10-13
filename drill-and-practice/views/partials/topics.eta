@@ -1,0 +1,60 @@
+<% layout("../layouts/layout.eta") %>
+
+<div class="container-fluid">
+  <div class="d-flex flex-column justify-content-center">
+    <% if (it.user && it.user.admin) { %>
+	
+      <% if (it.errors.length > 0) { %>
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+          <strong>Error:</strong> <%= it.errors[0] %>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close" onclick="closeAlert()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      <% } %>
+      <div class="d-flex justify-content-center mt-3">
+        <div class="col-md-6">
+          <div class="card border-dark mt-3">
+            <div class="card-header bg-dark text-white text-center">
+              <h2>Add topic</h2>
+            </div>
+            <div class="d-flex justify-content-center">
+              <form action="/topics" method="POST" class="mt-2">
+                <div class="form-group mb-1 text-center">
+                  <label for="questionInput" class="px-2">Topic</label>
+                  <textarea test-id="questionInput"name="name" class="form-control" id="questionInput" placeholder="Enter a new topic" ><%= it.value %></textarea>
+                </div>
+                <div class="d-flex justify-content-center mt-2">
+                  <button test-id="topicSubbari" type="submit" class="btn btn-primary">Submit</button> 
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% } %>
+
+    <div class="d-flex flex-column mx-auto mb-2 fs-5" style="min-width: 65%; max-width: 65%">
+      <h1 class="mb-3 text-center mt-4">Previous topics:</h1>
+      <ul test-id="topicList" class="list-group mt-2">
+        <% it.topics.forEach((topic) => { %>
+          <li class="list-group-item d-flex justify-content-between align-items-center text-decoration-none" style="text-decoration: none;">
+
+            <div style="min-width: 80%; max-width: 80%; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word;">
+              <a href="/topics/<%= topic.id %>" class="md-fs-5"><%= topic.name %></a>
+            </div>
+            <% if (it.user.admin) { %>
+			<div class="mt-4">
+              <form action="/topics/<%= topic.id %>/delete" method="POST" >
+                <button test-id="delete-button" type="submit" class="btn btn-danger" onmouseover="this.style.backgroundColor='#FF1F3B'; this.style.borderColor='#FF1F3B'" onmouseout="this.style.backgroundColor='#FF3C5E'; this.style.borderColor='#FF3C5E'">
+                  Delete topic
+                </button>
+              </form>
+			</div>
+            <% } %>
+          </li>
+        <% }) %>
+      </ul>
+    </div>
+  </div>
+</div>

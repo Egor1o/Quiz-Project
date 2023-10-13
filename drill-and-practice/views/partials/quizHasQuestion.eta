@@ -1,0 +1,25 @@
+<% layout("../layouts/layout.eta") %>
+
+  <div class="container-fluid"
+  <div class="d-flex flex-column align-items-center justify-content-center mt-3" style="max-width:80%">
+  <div class="card border-primary mb-3 mt-3">
+  <div class="card-header bg-primary text-white text-center">
+    <h2>Question:</h2>
+    <h5 style="color: white; font-family: 'Arial', sans-serif; font-weight: bold; text-decoration: none;"><%= it.question.question_text %></h5>
+  </div>
+  <ul id="questions" class="list-group">
+    <% it.options.forEach((option) => { %>
+      <li class="list-group-item text-center fs-4">
+        <p class="fs-5"><%= option.option_text %></p>
+        <form action="/quiz/<%= it.question.topic_id%>/questions/<%= it.question.id%>/options/<%= option.id%>" method="POST">
+          <button type="submit" class="btn btn-danger mt-3" style="background-color: #FF3C5E; border-color: #FF3C5E; color: white; font-weight: bold; text-transform: uppercase; font-size: 13px;" onmouseover="this.style.backgroundColor='#FF1F3B'; this.style.borderColor='#FF1F3B'" onmouseout="this.style.backgroundColor='#FF3C5E'; this.style.borderColor='#FF3C5E'">
+            Choose
+          </button>
+        </form>
+      </li>
+    <% }) %>
+  </ul>
+</div>
+</div>
+</div>
+

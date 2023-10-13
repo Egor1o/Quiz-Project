@@ -1,0 +1,18 @@
+<% layout("../layouts/layout.eta") %>
+
+<div class="container-fluid">
+  <div class="d-flex flex-column align-items-center justify-content-center mt-3">
+    <div class="text-center">
+      <h1>Choose the quiz's topic to attempt!</h1>
+    </div>
+    <div class="d-flex flex-column justify-content-center" style="max-width: 70%; min-width: 70%;">
+      <ul id="quizList" class="list-group mt-3">
+        <% it.topics.forEach((topic) => { %>
+          <li class="list-group-item text-center fs-5" style="overflow-wrap: break-word; word-wrap: break-word; word-break: break-word;">
+            <a href="/quiz/<%=topic.id%>"><%= topic.name %></a>
+          </li>
+        <% }) %>
+      </ul>
+    </div>
+  </div>
+</div>

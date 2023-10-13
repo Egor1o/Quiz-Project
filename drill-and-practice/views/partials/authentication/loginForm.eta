@@ -1,0 +1,41 @@
+<% layout("./layouts/layout.eta") %>
+
+
+
+
+<div class="container-fluid mt-3">
+  <div class="row justify-content-center">
+    <div class="col-lg-4">
+	<% if (it.errors.length > 0) { %>
+  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+  <strong>Authentication error</strong> Please verify parameters.
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close" onclick="closeAlert()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<% } %>
+      <div class="card border-dark mb-3">
+        <div class="card-header bg-dark text-white">
+          <h2 class="card-title">Sign up</h2>
+        </div>
+        <form action="/auth/login" method="POST">
+          <div class="form-group mt-2 px-2">
+            <label for="exampleInputEmail1" style="margin-left: 6px;">Email address</label>
+            <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" value="<%= it.email %>">
+          </div>
+          <div class="form-group mt-2 px-2">
+            <label for="exampleInputPassword1" style="margin-left: 6px;">Password</label>
+            <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password" >
+          </div>
+          <div class="text-center">
+            <button test-id="subbariLogin"type="submit" class="btn btn-black border-black mt-3">Submit</button> 
+          </div>
+        </form>
+      </div>
+	  <div class="d-flex justify-content-between align-items-center">
+  <h5 class="text-right mt-2">Not registered yet? <a href="/auth/register">Make account here!</a></h5>
+
+</div>
+
+  </div>
+</div>

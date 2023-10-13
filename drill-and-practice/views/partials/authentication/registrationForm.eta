@@ -1,0 +1,38 @@
+<% layout("./layouts/layout.eta") %>
+
+<div class="container-fluid mt-3">
+  <div class="row justify-content-center">
+    <div class="col-lg-4">
+      <div class="card border-dark mb-3">
+        <div class="card-header bg-dark text-white">
+          <h2 class="card-title">Registration</h2>
+        </div>
+        <form action="/auth/register" method="POST">
+          <div class="form-group mt-2 px-2">
+            <label for="exampleInputEmail1" style="margin-left: 6px;">Email address</label>
+            <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" value="<%= it.email %>">
+          </div>
+          <div class="form-group mt-2 px-2">
+            <label for="exampleInputPassword1" style="margin-left: 6px;">Password</label>
+            <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password" >
+          </div>
+          <div class="text-center">
+            <button test-id="subbari" type="submit" class="btn btn-black border-black mt-3">Submit</button> 
+          </div>
+        </form>
+      </div>
+      <h5 class="text-right">Already Signed up? <a href="/auth/login">Login here!</a></h5>
+    </div>
+	<% if(Object.values(it.errors).length != 0){ %>
+	<div class="col-lg-4">
+		<ul>
+			<% Object.values(it.errors).forEach((obj) => { %>
+				<% Object.values(obj).forEach((error) => { %>
+				<li> <%= error %> </li>
+				<% }) %>
+			<% }) %>
+		</ul>
+	</div>
+	<% } %>
+  </div>
+</div>
